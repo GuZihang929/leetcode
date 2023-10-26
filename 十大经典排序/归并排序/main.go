@@ -23,25 +23,21 @@ func Merge(left, right []int) []int {
 	res := make([]int, len(left)+len(right))
 	i, j := 0, 0
 	m := 0
-	for i < len(left) || j < len(right) {
-		if i == len(left) {
-			res = append(res[0:m], right[j:]...)
-			break
-		}
-		if j == len(right) {
-			res = append(res[0:m], left[i:]...)
-			i++
-			break
-		}
+	for i < len(left) && j < len(right) {
 		if left[i] <= right[j] {
 			res[m] = left[i]
 			i++
 		} else {
 			res[m] = right[j]
-
 			j++
 		}
 		m++
+	}
+	if i == len(left) {
+		res = append(res[0:m], right[j:]...)
+	}
+	if j == len(right) {
+		res = append(res[0:m], left[i:]...)
 	}
 	return res
 }
